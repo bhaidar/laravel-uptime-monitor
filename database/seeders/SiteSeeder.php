@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Site;
+use App\Models\User;
+use Database\Seeders\Userer as UsererAlias;
 use Illuminate\Database\Seeder;
 
 class SiteSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run($user_id): void
     {
-        //
+        Site::factory()->count(2)->create([
+            'user_id' => $user_id,
+        ]);
     }
 }

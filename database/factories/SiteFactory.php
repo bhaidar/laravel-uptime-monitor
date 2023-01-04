@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Site;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Site>
+ * @extends Factory<Site>
  */
 class SiteFactory extends Factory
 {
@@ -14,10 +15,12 @@ class SiteFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'scheme' => 'https',
+            'domain' => $this->faker->domainName(),
+            'user_id' => '',
         ];
     }
 }
