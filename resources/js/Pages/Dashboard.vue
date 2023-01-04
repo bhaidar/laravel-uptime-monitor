@@ -1,6 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import SiteSelector from "@/Components/SiteSelector.vue";
+
+defineProps({
+  site: Object,
+  sites: Object,
+});
 </script>
 
 <template>
@@ -8,7 +14,12 @@ import { Head } from '@inertiajs/inertia-vue3';
 
     <AuthenticatedLayout>
         <template #header>
+          <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+            <div>
+              <SiteSelector :sites="sites" />
+            </div>
+          </div>
         </template>
 
         <div class="py-12">
