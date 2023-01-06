@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Site;
+use App\Observers\SiteObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        Site::observe(SiteObserver::class);
     }
 }

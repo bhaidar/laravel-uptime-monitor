@@ -18,6 +18,15 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request, Site $site): Response
     {
+        // Make site default
+        $site->update(['default' => true]);
+
+        // Case when no site is passed over
+        if (!$site->exists)
+        {
+            $site = $request->user()->sites()->whereDefault(true)->first() ?? $request->user()->sites()->first();
+        }
+
         return Inertia::render('Dashboard', [
             'site' => SiteResource::make($site),
             'sites' => SiteResource::collection(Site::get()),
