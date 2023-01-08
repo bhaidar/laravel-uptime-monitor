@@ -59,7 +59,11 @@ const createSite = () => {
 
       <form @submit.prevent="createSite" class="overflow-hidden space-y-4">
         <InputLabel for="domain" value="Domain" class="sr-only" />
-        <TextInput id="domain" type="text" class="block w-full h-9 text-sm" placeholder="e.g. https://codecourse.com" v-model="siteForm.domain" :class="{ 'border-red-500': siteForm.errors.domain }" />
+        <TextInput id="domain" type="text" class="block w-full h-9 text-sm"
+                   placeholder="e.g. https://codecourse.com"
+                   v-model="siteForm.domain"
+                   :class="{ 'border-red-500': siteForm.errors.domain }"
+        />
         <InputError class="mt-2" :message="siteForm.errors.domain" />
 
         <PrimaryButton>
