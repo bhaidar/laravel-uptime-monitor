@@ -20,7 +20,7 @@ const siteForm = useForm({
 })
 
 const createSite = () => {
-  siteForm.post('/sites', {
+  siteForm.post(route('sites.store'), {
     preserveScroll: true,
     onSuccess: () => {
       siteForm.reset()
