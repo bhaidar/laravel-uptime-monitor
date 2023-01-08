@@ -1,9 +1,33 @@
 <script setup>
+import { ref } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/inertia-vue3';
+import { VueFinalModal } from 'vue-final-modal';
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/InputError.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+
 
 defineProps({
   sites: Object,
 });
+
+const showNewSiteModal = ref (false);
+
+const siteForm = useForm({
+  domain: null
+})
+
+const createSite = () => {
+  siteForm.post('/sites', {
+    preserveScroll: true,
+    onSuccess: () => {
+      siteForm.reset()
+      showNewSiteModal.value = false
+    }
+  })
+}
 </script>
 
 <template>
@@ -20,9 +44,28 @@ defineProps({
           <Link :href="route('dashboard', { 'site': site.id})" class="px-4 py-2 block text-sm hover:bg-gray-100 text-gray-500 hover:text-gray-700">{{ site.domain }}</Link>
         </li>
         <li>
-          <button class="block text-left w-full px-4 py-2 hover:bg-gray-100 text-indigo-500 font-bold text-sm">Add a site</button>
+          <button @click.prevent="showNewSiteModal = true" class="block text-left w-full px-4 py-2 hover:bg-gray-100 text-indigo-500 font-bold text-sm">Add a site</button>
         </li>
       </ul>
     </template>
   </VDropdown>
+
+  <teleport to="#modal-area" v-if="showNewSiteModal">
+    <VueFinalModal v-model="showNewSiteModal" classes="flex justify-center items-start pt-16 md:pt-24 mx-4"
+                   content-class="relative max-h-full rounded bg-white w-full max-w-2xl p-4 md:p-6"
+                   overlay-class="bg-gradient-to-r from-gray-800 to-gray-500 opacity-50"
+                   :esc-to-close="true">
+      <h2 class="font-semibold text-lg text-gray-800 leading-tight">New site</h2>
+
+      <form @submit.prevent="createSite" class="overflow-hidden space-y-4">
+        <InputLabel for="domain" value="Domain" class="sr-only" />
+        <TextInput id="domain" type="text" class="block w-full h-9 text-sm" placeholder="e.g. https://codecourse.com" v-model="siteForm.domain" :class="{ 'border-red-500': siteForm.errors.domain }" />
+        <InputError class="mt-2" :message="siteForm.errors.domain" />
+
+        <PrimaryButton>
+          Add
+        </PrimaryButton>
+      </form>
+    </VueFinalModal>
+  </teleport>
 </template>

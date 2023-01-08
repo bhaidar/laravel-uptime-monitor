@@ -16,5 +16,6 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+        <div id="modal-area"></div>
     </body>
 </html>
