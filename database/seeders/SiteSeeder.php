@@ -13,6 +13,8 @@ class SiteSeeder extends Seeder
     {
         Site::factory()->count(2)->create([
             'user_id' => $user_id,
-        ]);
+        ])->each(function (Site $site) {
+            $this->callWith(EndpointSeeder::class, ['site_id' => $site->id]);
+        });
     }
 }

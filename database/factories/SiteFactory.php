@@ -18,8 +18,7 @@ class SiteFactory extends Factory
     public function definition(): array
     {
         return [
-            'scheme' => 'https',
-            'domain' => $this->faker->domainName(),
+            'domain' => $this->faker->url(),
             'user_id' => '',
         ];
     }
