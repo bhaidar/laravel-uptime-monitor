@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Endpoint;
 use App\Models\Site;
+use App\Observers\EndpointObserver;
 use App\Observers\SiteObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Site::observe(SiteObserver::class);
+        Endpoint::observe(EndpointObserver::class);
     }
 }

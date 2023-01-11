@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteStoreController;
 use Illuminate\Foundation\Application;
@@ -19,8 +20,19 @@ Route::get('/', function () {
 Route::get('/dashboard/{site?}', DashboardController::class)
     ->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/sites', SiteStoreController::class)
-    ->middleware(['auth'])->name('sites.store');
+Route::middleware(['auth'])
+    ->prefix('/sites')
+    ->group(function () {
+        Route::post('/', SiteStoreController::class)
+            ->name('sites.store');
+
+        Route::post('/', SiteStoreController::class)
+            ->name('sites.store');
+
+        // An endpoint is created on a site => nested route
+        Route::post('/{site}/endpoints', EndpointStoreController::class)
+            ->name('site.endpoints.store');
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
