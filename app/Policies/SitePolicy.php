@@ -10,7 +10,7 @@ class SitePolicy
 {
     use HandlesAuthorization;
 
-    public function storEndpoint(User $user, Site $site): bool
+    public function storeEndpoint(User $user, Site $site): bool
     {
         return $user->id === $site->user_id;
     }

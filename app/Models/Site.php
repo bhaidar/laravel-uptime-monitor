@@ -17,6 +17,11 @@ class Site extends Model
         'scheme',
     ];
 
+    public function url()
+    {
+        return $this->scheme . '://' . $this->domain;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
