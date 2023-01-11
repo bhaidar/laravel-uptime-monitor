@@ -19,7 +19,6 @@ class EndpointFactory extends Factory
     {
         return [
             'location' => '/',
-            'frequency' => 60,
             'next_check' => Carbon::now()->addMinutes(60),
         ];
     }
