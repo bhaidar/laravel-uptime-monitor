@@ -6,6 +6,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import Select from '@/Components/Select.vue';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import InputError from "@/Components/InputError.vue";
 
 const props = defineProps({
   site: Object,
@@ -51,6 +52,7 @@ const storeEndpoint = () => {
                 <div class="grow">
                   <InputLabel for="location" value="Location" class="sr-only" />
                   <TextInput v-model="endpointForm.location" id="location" type="text" class="block w-full h-9 text-sm" placeholder="e.g. /pricing" />
+                  <InputError class="mt-2" :message="endpointForm.errors.location" />
                 </div>
 
                 <div>
