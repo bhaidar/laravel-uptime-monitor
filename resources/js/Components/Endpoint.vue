@@ -1,9 +1,9 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { ref, watch } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import { useForm, usePage } from "@inertiajs/inertia-vue3";
+import debounce from 'lodash/debounce';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputError from "@/Components/InputError.vue";
@@ -21,15 +21,20 @@ const endpointForm = useForm({
 const editing = ref(false);
 const frequencies = ref(usePage()?.props?.value?.frequencies?.data);
 
+// watch any changes on the form and save
+watch(endpointForm, () => {
+  endpointSave();
+});
+
 const onDeleteEndpoint = () => {
   if (window.confirm('Are you sure you want to delete this endpoint?')) {
     Inertia.delete(route('endpoints.destroy', { endpoint: props?.endpoint?.id }));
   }
 };
 
-const onSaveEndpoint = () => {
-
-};
+const endpointSave = debounce(() => {
+  console.log('send api request');
+}, 500);
 </script>
 
 <template>
@@ -68,21 +73,9 @@ const onSaveEndpoint = () => {
       x%
     </td>
     <td class="whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-6 w-32">
-      <template v-if="!editing">
-        <SecondaryButton @click.prevent="editing = !editing">
-          Edit
-        </SecondaryButton>
-      </template>
-      <template v-else>
-        <div class="space-x-2">
-          <SecondaryButton @click.prevent="editing = !editing">
-            Cancel
-          </SecondaryButton>
-          <PrimaryButton @click.prevent="onSaveEndpoint">
-            Save
-          </PrimaryButton>
-        </div>
-      </template>
+      <SecondaryButton @click.prevent="editing = !editing">
+        {{ !editing ? 'Edit' : 'Done' }}
+      </SecondaryButton>
     </td>
     <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 w-16">
       <SecondaryButton type="button" @click.prevent="onDeleteEndpoint" class="text-red-600 hover:text-red-900">
