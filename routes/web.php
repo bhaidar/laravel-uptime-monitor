@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\EndpointDestoryController;
+use App\Http\Controllers\EndpointDestroyController;
 use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteStoreController;
@@ -35,7 +35,7 @@ Route::middleware(['auth'])
             ->name('site.endpoints.store');
     });
 
-Route::delete('/endpoints/{endpoint}', EndpointDestoryController::class)
+Route::delete('/endpoints/{endpoint}', EndpointDestroyController::class)
     ->middleware(['auth'])
     ->name('endpoints.destroy');
 
