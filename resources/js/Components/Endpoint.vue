@@ -21,8 +21,8 @@ const endpointForm = useForm({
 const editing = ref(false);
 const frequencies = ref(usePage()?.props?.value?.frequencies?.data);
 
-// watch any changes on the form and save
-watch(endpointForm, () => {
+// watch changes on location or frequencies only
+watch(() => endpointForm.isDirty, () => {
   endpointSave();
 });
 
@@ -33,7 +33,9 @@ const onDeleteEndpoint = () => {
 };
 
 const endpointSave = debounce(() => {
-  console.log('send api request');
+  endpointForm.patch(route('endpoints.update', { endpoint: props?.endpoint }), {
+    preserveScroll: true,
+  });
 }, 500);
 </script>
 

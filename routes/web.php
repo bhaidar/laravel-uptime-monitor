@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EndpointDestroyController;
 use App\Http\Controllers\EndpointStoreController;
+use App\Http\Controllers\EndpointUpdateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteStoreController;
 use Illuminate\Foundation\Application;
@@ -35,9 +36,14 @@ Route::middleware(['auth'])
             ->name('site.endpoints.store');
     });
 
-Route::delete('/endpoints/{endpoint}', EndpointDestroyController::class)
-    ->middleware(['auth'])
-    ->name('endpoints.destroy');
+Route::middleware(['auth'])
+    ->prefix('/endpoints')
+    ->group(function () {
+        Route::delete('/{endpoint}', EndpointDestroyController::class)
+            ->name('endpoints.destroy');
+        Route::patch('/{endpoint}', EndpointUpdateController::class)
+            ->name('endpoints.update');
+    });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
