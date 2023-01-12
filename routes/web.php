@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EndpointDestoryController;
 use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteStoreController;
@@ -33,6 +34,10 @@ Route::middleware(['auth'])
         Route::post('/{site}/endpoints', EndpointStoreController::class)
             ->name('site.endpoints.store');
     });
+
+Route::delete('/endpoints/{endpoint}', EndpointDestoryController::class)
+    ->middleware(['auth'])
+    ->name('endpoints.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

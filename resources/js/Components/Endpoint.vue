@@ -1,7 +1,16 @@
 <script setup>
-defineProps({
+import { Inertia } from '@inertiajs/inertia';
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+
+const props = defineProps({
   endpoint: Object,
 });
+
+const onDeleteEndpoint = () => {
+  if (window.confirm('Are you sure you want to delete this endpoint?')) {
+    Inertia.delete(route('endpoints.destroy', { endpoint: props?.endpoint?.id }));
+  }
+};
 </script>
 
 <template>
@@ -24,14 +33,14 @@ defineProps({
       x%
     </td>
     <td class="whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-6 w-32">
-      <button class="text-indigo-600 hover:text-indigo-900">
+      <SecondaryButton class="text-indigo-600 hover:text-indigo-900">
         Edit
-      </button>
+      </SecondaryButton>
     </td>
     <td class="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 w-16">
-      <button class="text-red-600 hover:text-red-900">
+      <SecondaryButton type="button" @click.prevent="onDeleteEndpoint" class="text-red-600 hover:text-red-900">
         Delete
-      </button>
+      </SecondaryButton>
     </td>
   </tr>
 </template>

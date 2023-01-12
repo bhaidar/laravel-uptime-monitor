@@ -31,7 +31,7 @@ const storeEndpoint = () => {
   });
 };
 
-const endpointsCount = computed(() => toRaw(props?.endpoints?.data).length);
+const endpointsCount = computed(() => props?.endpoints?.data?.length);
 </script>
 
 <template>
