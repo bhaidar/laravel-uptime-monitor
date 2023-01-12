@@ -56,7 +56,7 @@ const endpointsCount = computed(() => props?.endpoints?.data?.length);
               <form @submit.prevent="storeEndpoint" class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex items-start p-3 mt-4 space-x-2">
                 <div class="grow">
                   <InputLabel for="location" value="Location" class="sr-only" />
-                  <TextInput v-model="endpointForm.location" id="location" type="text" class="block w-full h-9 text-sm" placeholder="e.g. /pricing" />
+                  <TextInput v-model="endpointForm.location" id="location" type="text" placeholder="e.g. /pricing" />
                   <InputError class="mt-2" :message="endpointForm.errors.location" />
                 </div>
 
