@@ -1,4 +1,5 @@
 <script setup>
+import { computed, toRaw } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/inertia-vue3';
 import SiteSelector from "@/Components/SiteSelector.vue";
@@ -29,6 +30,8 @@ const storeEndpoint = () => {
     },
   });
 };
+
+const endpointsCount = computed(() => toRaw(props?.endpoints?.data).length);
 </script>
 
 <template>
@@ -72,7 +75,7 @@ const storeEndpoint = () => {
 
               <div class="mt-8 flex flex-col">
                 <h2 class="font-semibold text-lg text-gray-800 leading-tight">
-                  Currently monitoring (0)
+                  Currently monitoring ({{ endpointsCount }})
                 </h2>
                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-3">
                   <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
