@@ -29,7 +29,10 @@ class EndpointUpdateRequest extends FormRequest
         return [
             'location' => [
                 'required',
-                Rule::unique('endpoints')->where(fn ($query) => $query->where('site_id', $this->endpoint->site_id)),
+                // table[,column[,ignore value[,ignore column[,where column,where value]...]]]
+                Rule::unique('endpoints', 'location')
+                    ->where('site_id', $this->endpoint->site_id)
+                    ->ignore($this->endpoint->id),
             ],
             'frequency' => ['required', new Enum(EndpointFrequency::class)], // validate enum
         ];
