@@ -2,13 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Enums\EndpointFrequency;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
-class EndpointResource extends JsonResource
+class CheckResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,10 +19,6 @@ class EndpointResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'location' => $this->location,
-            'frequency' => $this->frequency,
-            'frequency_label' => EndpointFrequency::from($this->frequency)->label(),
-            'latest_check' => CheckResource::make($this->check),
         ];
     }
 }

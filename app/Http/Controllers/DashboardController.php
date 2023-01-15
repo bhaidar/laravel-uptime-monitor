@@ -30,6 +30,9 @@ class DashboardController extends Controller
             $site = $request->user()->sites()->whereDefault(true)->first() ?? $request->user()->sites()->first();
         }
 
+        // eager load endpoints together with their checks
+        $site->loadMissing('endpoints.check');
+
         return Inertia::render('Dashboard', [
             'site' => SiteResource::make($site),
             'sites' => SiteResource::collection(Site::get()),
