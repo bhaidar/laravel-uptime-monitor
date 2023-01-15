@@ -69,7 +69,17 @@ const endpointSave = debounce(() => {
       Last Check
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
-      Status
+      <template v-if="endpoint.latest_check">
+        <span
+            class="inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium"
+            :class="{'bg-green-100 text-green-800': endpoint.latest_check.is_successful, 'bg-red-100 text-red-800': !endpoint.latest_check.is_successful}"
+        >
+          {{ endpoint.latest_check.status_text}}
+        </span>
+      </template>
+      <template v-else>
+
+      </template>
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
       x%

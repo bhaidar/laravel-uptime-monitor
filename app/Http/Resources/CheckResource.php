@@ -19,6 +19,10 @@ class CheckResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'response_code' => $this->response_code,
+            'response_body' => $this->response_body,
+            'is_successful' => $this->isSuccessful(),
+            'status_text' => $this->statusText(),
         ];
     }
 }
