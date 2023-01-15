@@ -66,7 +66,7 @@ const endpointSave = debounce(() => {
       </template>
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
-      Last Check
+      <time :datetime="endpoint.latest_check.created_at.date_time" :title="endpoint.latest_check.created_at.date_time">{{ endpoint.latest_check.created_at.human }}</time>
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
       <template v-if="endpoint.latest_check">
@@ -78,7 +78,7 @@ const endpointSave = debounce(() => {
         </span>
       </template>
       <template v-else>
-
+        -
       </template>
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">

@@ -23,6 +23,7 @@ class CheckResource extends JsonResource
             'response_body' => $this->response_body,
             'is_successful' => $this->isSuccessful(),
             'status_text' => $this->statusText(),
+            'created_at' => DateTimeResource::make($this->created_at),
         ];
     }
 }
