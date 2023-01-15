@@ -3,12 +3,14 @@
 namespace App\Jobs;
 
 use App\Models\Endpoint;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Http;
 
 class PerformEndpointCheck implements ShouldQueue
 {
@@ -31,7 +33,13 @@ class PerformEndpointCheck implements ShouldQueue
      */
     public function handle(): void
     {
-        // Http Request
+        try {
+            $response = Http::get($this->endpoint->url());
+            dd($response->status());
+        } catch (Exception $e)
+        {
+
+        }
 
         $this->endpoint->update([
             'next_check' => now()->addSeconds($this->endpoint->frequency),
