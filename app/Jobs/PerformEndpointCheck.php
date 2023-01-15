@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class PerformEndpointCheck implements ShouldQueue
 {
@@ -35,7 +36,7 @@ class PerformEndpointCheck implements ShouldQueue
     {
         try {
             $response = Http::get($this->endpoint->url());
-            dd($response->status());
+            Log::info($response->status());
         } catch (Exception $e)
         {
 
