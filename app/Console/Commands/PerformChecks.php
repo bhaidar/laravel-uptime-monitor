@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\PerformEndpointCheck;
 use App\Models\Endpoint;
 use Illuminate\Console\Command;
 
@@ -31,7 +32,7 @@ class PerformChecks extends Command
         Endpoint::query()
             ->where('next_check', '<=', now())
             ->each(function (Endpoint $endpoint) {
-                // job
+                PerformEndpointCheck::dispatch($endpoint);
             });
 
         return Command::SUCCESS;
