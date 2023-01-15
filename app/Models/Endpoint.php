@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Endpoint extends Model
 {
@@ -24,5 +26,15 @@ class Endpoint extends Model
     public function url(): string
     {
         return $this->site->url() . $this->location;
+    }
+
+    public function checks(): HasMany
+    {
+        return $this->hasMany(Check::class);
+    }
+
+    public function check(): HasOne
+    {
+        return $this->hasOne(Check::class)->latestOfMany();
     }
 }
