@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 class SiteObserver
 {
-    public function creating(Site $site)
+    public function creating(Site $site): void
     {
         $parsed = parse_url($site->domain);
 
@@ -15,7 +15,7 @@ class SiteObserver
         $site->domain = Arr::get($parsed, 'host');
     }
 
-    public function updating(Site $site)
+    public function updating(Site $site): void
     {
         // getDirty(): Get the attributes that have been changed since the last sync.
 

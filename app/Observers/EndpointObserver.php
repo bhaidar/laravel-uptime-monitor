@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 class EndpointObserver
 {
-    public function creating(Endpoint $endpoint)
+    public function creating(Endpoint $endpoint): void
     {
         $parsed = parse_url($endpoint->site->url() . '/' . $endpoint->location);
 
