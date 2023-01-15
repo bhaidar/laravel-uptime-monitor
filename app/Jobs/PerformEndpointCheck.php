@@ -42,6 +42,11 @@ class PerformEndpointCheck implements ShouldQueue
 
         }
 
+        $this->endpoint->checks()->create([
+            'response_code' => $response->status(),
+            'response_body' => !$response->successful() ? $response->body() : '',
+        ]);
+
         $this->endpoint->update([
             'next_check' => now()->addSeconds($this->endpoint->frequency),
         ]);
