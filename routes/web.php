@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EndpointDestroyController;
+use App\Http\Controllers\EndpointIndexController;
 use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\EndpointUpdateController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +40,8 @@ Route::middleware(['auth'])
 Route::middleware(['auth'])
     ->prefix('/endpoints')
     ->group(function () {
+        Route::get('/{endpoint}', EndpointIndexController::class)
+            ->name('endpoints.index');
         Route::delete('/{endpoint}', EndpointDestroyController::class)
             ->name('endpoints.destroy');
         Route::patch('/{endpoint}', EndpointUpdateController::class)

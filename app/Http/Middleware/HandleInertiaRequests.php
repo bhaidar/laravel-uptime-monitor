@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use App\Enums\EndpointFrequency;
 use App\Http\Resources\EndpointFrequencyResource;
+use App\Http\Resources\SiteResource;
+use App\Models\Site;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -37,6 +39,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'frequencies' => EndpointFrequencyResource::collection(EndpointFrequency::cases()),
+            'sites' => SiteResource::collection(Site::get()),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

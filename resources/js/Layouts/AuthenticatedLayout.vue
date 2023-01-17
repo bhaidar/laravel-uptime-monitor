@@ -1,13 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+import { ref} from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link, usePage } from '@inertiajs/inertia-vue3';
+import SiteSelector from "@/Components/SiteSelector.vue";
 
 const showingNavigationDropdown = ref(false);
+const sites = ref(usePage().props.value.sites?.data);
 </script>
 
 <template>
@@ -137,9 +139,17 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
+                  <div class="flex items-center justify-between">
+                    <div><slot name="left-header" /></div>
+                    <div><slot name="middle-header" /></div>
+                    <div>
+                      <slot name="right-header">
+                        <SiteSelector v-if="sites" :sites="sites" />
+                      </slot>
+                    </div>
+                  </div>
                 </div>
             </header>
 

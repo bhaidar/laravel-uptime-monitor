@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import { useForm, usePage } from "@inertiajs/inertia-vue3";
+import { Link, useForm, usePage } from "@inertiajs/inertia-vue3";
 import debounce from 'lodash/debounce';
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -43,9 +43,9 @@ const endpointSave = debounce(() => {
   <tr>
     <td class="whitespace-nowrap pl-4 sm:pl-6 px-3 text-sm font-medium text-gray-900 w-64">
       <template v-if="!editing">
-        <a href="/" class="text-indigo-600 hover:text-indigo-900">
+        <Link :href="route('endpoints.index', { endpoint })" class="text-indigo-600 hover:text-indigo-900">
           {{ endpoint.location }}
-        </a>
+        </Link>
       </template>
       <template v-else>
           <InputLabel for="location" value="Location" class="sr-only" />

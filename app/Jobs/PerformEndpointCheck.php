@@ -36,11 +36,8 @@ class PerformEndpointCheck implements ShouldQueue
     {
         try {
             $response = Http::get($this->endpoint->url());
-            Log::info($response->status());
-        } catch (Exception $e)
-        {
-
-        }
+        } catch (Exception)
+        {}
 
         $this->endpoint->checks()->create([
             'response_code' => $response->status(),
