@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EndpointResource;
 use App\Models\Endpoint;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,6 +14,8 @@ class EndpointIndexController extends Controller
     {
         // Authorize
 
-        return Inertia::render('Endpoint');
+        return Inertia::render('Endpoint', [
+            'endpoint' => EndpointResource::make($endpoint),
+        ]);
     }
 }

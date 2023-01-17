@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'frequencies' => EndpointFrequencyResource::collection(EndpointFrequency::cases()),
-            'sites' => SiteResource::collection(Site::get()),
+            'sites' => $request->user() ? SiteResource::collection($request->user()->sites()->latest()->get()) : null,
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
