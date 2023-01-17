@@ -20,6 +20,7 @@ const endpointForm = useForm({
 
 const editing = ref(false);
 const frequencies = ref(usePage()?.props?.value?.frequencies?.data);
+const latestCheck = ref(props?.endpoint?.latest_check);
 
 // watch changes on location or frequencies only
 watch(() => endpointForm.isDirty, () => {
@@ -66,15 +67,15 @@ const endpointSave = debounce(() => {
       </template>
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
-      <time :datetime="endpoint.latest_check.created_at.date_time" :title="endpoint.latest_check.created_at.date_time">{{ endpoint.latest_check.created_at.human }}</time>
+      <time v-if="latestCheck" :datetime="latestCheck?.created_at.date_time" :title="latestCheck?.created_at.date_time">{{ latestCheck?.created_at.human }}</time>
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
-      <template v-if="endpoint.latest_check">
+      <template v-if="latestCheck">
         <span
             class="inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium"
-            :class="{'bg-green-100 text-green-800': endpoint.latest_check.is_successful, 'bg-red-100 text-red-800': !endpoint.latest_check.is_successful}"
+            :class="{'bg-green-100 text-green-800': latestCheck?.is_successful, 'bg-red-100 text-red-800': !latestCheck?.is_successful}"
         >
-          {{ endpoint.latest_check.status_text}}
+          {{ latestCheck?.response_code}} {{ latestCheck?.status_text}}
         </span>
       </template>
       <template v-else>

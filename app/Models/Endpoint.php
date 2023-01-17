@@ -30,7 +30,7 @@ class Endpoint extends Model
 
     public function checks(): HasMany
     {
-        return $this->hasMany(Check::class);
+        return $this->hasMany(Check::class)->latest();
     }
 
     public function check(): HasOne

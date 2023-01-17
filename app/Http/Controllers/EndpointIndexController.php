@@ -14,6 +14,8 @@ class EndpointIndexController extends Controller
     {
         // Authorize
 
+        $endpoint->load(['site', 'checks']);
+
         return Inertia::render('Endpoint', [
             'endpoint' => EndpointResource::make($endpoint),
         ]);

@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Link } from '@inertiajs/inertia-vue3';
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import Check from "@/Components/Check.vue";
 
 const props = defineProps({
   endpoint: Object,
@@ -9,6 +10,8 @@ const props = defineProps({
 
 const endpointUrl = ref(props?.endpoint?.data?.url);
 const site = ref(props?.endpoint?.data?.site);
+const checks = ref(props?.endpoint?.data?.checks);
+const hasChecks = computed(() => checks?.value?.length > 0);
 </script>
 
 <template>
@@ -51,7 +54,7 @@ const site = ref(props?.endpoint?.data?.site);
                   </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200 bg-white">
-
+                    <Check v-for="check in checks" :key="check.id" :check="check" />
                   </tbody>
                 </table>
               </div>
