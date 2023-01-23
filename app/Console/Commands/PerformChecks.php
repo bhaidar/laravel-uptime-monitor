@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\PerformEndpointCheck;
 use App\Models\Endpoint;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class PerformChecks extends Command
 {
@@ -35,6 +36,6 @@ class PerformChecks extends Command
                 PerformEndpointCheck::dispatch($endpoint);
             });
 
-        return Command::SUCCESS;
+        return CommandAlias::SUCCESS;
     }
 }

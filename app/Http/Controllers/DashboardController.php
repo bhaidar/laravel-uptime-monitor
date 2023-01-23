@@ -6,6 +6,7 @@ use App\Enums\EndpointFrequency;
 use App\Http\Resources\EndpointFrequencyResource;
 use App\Http\Resources\EndpointResource;
 use App\Http\Resources\SiteResource;
+use App\Models\Endpoint;
 use App\Models\Site;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -35,7 +36,12 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard', [
             'site' => SiteResource::make($site),
-            'endpoints' => EndpointResource::collection($site->endpoints),
+            'endpoints' => EndpointResource::collection(
+                $site->endpoints
+                    ->map(function (Endpoint $endpoint) use($site) { // not to load site again when calling site->url() on each Endoint
+                        return $endpoint->setRelation('site', $site);
+                    })
+            ),
         ]);
     }
 }

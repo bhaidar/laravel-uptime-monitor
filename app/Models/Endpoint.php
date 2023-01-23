@@ -28,6 +28,15 @@ class Endpoint extends Model
         return $this->site->url() . $this->location;
     }
 
+    public function uptimePercentages(): float|int|null
+    {
+        if (!$this->checks->count()) {
+            return null;
+        }
+
+        return number_format(($this->successful_checks_count / $this->checks->count()) * 100, 2);
+    }
+
     public function checks(): HasMany
     {
         return $this->hasMany(Check::class)->latest();

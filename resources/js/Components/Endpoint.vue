@@ -83,7 +83,12 @@ const endpointSave = debounce(() => {
       </template>
     </td>
     <td class="whitespace-nowrap px-3 text-sm text-gray-500 w-64">
-      x%
+      <template v-if="endpoint.uptimePercentages !== null">
+        {{ endpoint.uptimePercentages }}%
+      </template>
+      <template v-else>
+        -
+      </template>
     </td>
     <td class="whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-6 w-32">
       <SecondaryButton @click.prevent="editing = !editing">

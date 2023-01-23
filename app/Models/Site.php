@@ -29,6 +29,10 @@ class Site extends Model
 
     public function endpoints(): HasMany
     {
-        return $this->hasMany(Endpoint::class)->latest();
+        return $this->hasMany(Endpoint::class)
+            ->withCount(['checks as successful_checks_count' => function ($query) { // needed to calculate successful checks
+                $query->where('response_code', 200);
+            }])
+            ->latest();
     }
 }
