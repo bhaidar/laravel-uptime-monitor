@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +16,11 @@ class Site extends Model
         'default',
         'domain',
         'scheme',
+        'notification_emails',
+    ];
+
+    public $casts = [
+        'notification_emails' => AsArrayObject::class, // array
     ];
 
     public function url()
