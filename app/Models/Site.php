@@ -20,7 +20,7 @@ class Site extends Model
     ];
 
     public $casts = [
-        'notification_emails' => AsArrayObject::class, // array
+        'notification_emails' => 'array', // AsArrayObject::class
     ];
 
     public function url()
