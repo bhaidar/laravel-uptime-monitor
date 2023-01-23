@@ -1,14 +1,14 @@
 <script setup>
-import { computed, toRaw } from 'vue';
+import { computed } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {Head, useForm} from '@inertiajs/inertia-vue3';
-import SiteSelector from "@/Components/SiteSelector.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import Select from '@/Components/Select.vue';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import Endpoint from "@/Components/Endpoint.vue";
+import EmailNotifications from "@/Components/EmailNotifications.vue";
 
 const props = defineProps({
   site: Object,
@@ -108,6 +108,20 @@ const endpointsCount = computed(() => props?.endpoints?.data?.length);
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div class="mt-8 flex flex-col">
+                <h2 class="font-semibold text-lg text-gray-800 leading-tight">
+                  Notification Emails
+                </h2>
+
+                <div class="grid grid-cols-3 gap-12 mt-4">
+                  <EmailNotifications :site="site.data" />
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <PrimaryButton class="shrink-0 h-9 bg-red-500 text-white text-sm">Delete site</PrimaryButton>
               </div>
             </div>
         </div>

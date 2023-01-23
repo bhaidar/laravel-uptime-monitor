@@ -6,6 +6,7 @@ use App\Http\Controllers\EndpointIndexController;
 use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\EndpointUpdateController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiteNotificationEmailStoreController;
 use App\Http\Controllers\SiteStoreController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ Route::middleware(['auth'])
         // An endpoint is created on a site => nested route
         Route::post('/{site}/endpoints', EndpointStoreController::class)
             ->name('site.endpoints.store');
+
+        // Can have more notifications in the future
+        Route::post('/{site}/notifications/emails', SiteNotificationEmailStoreController::class)
+            ->name('site.notifications.store');
     });
 
 Route::middleware(['auth'])
