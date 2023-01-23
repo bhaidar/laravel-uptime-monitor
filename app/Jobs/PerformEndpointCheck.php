@@ -12,9 +12,34 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 
-class PerformEndpointCheck implements ShouldQueue
+class PerformEndpointCheck implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public function __construct(protected $endpoint)
+    {
+    }
+
+    /**
+     * The number of seconds after which the job's unique lock will be released.
+     *
+     * @var int
+     */
+    public $uniqueFor = 3600;
+
+    /**
+     * The unique ID of the job.
+     *
+     * Running the job takes more than 1 second, hence queue re-runs the same
+     * endpoint as it is returned through the query in the command
+     * Let's limit this to be unique and only one exists at a time
+     *
+     * @return string
+     */
+    public function uniqueId()
+    {
+        return 'endpoint_'.$this->endpoint->id;
+    }
 
     /**
      * Execute the job.
