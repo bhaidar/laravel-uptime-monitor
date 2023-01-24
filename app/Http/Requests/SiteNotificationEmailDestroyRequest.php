@@ -24,8 +24,7 @@ class SiteNotificationEmailDestroyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'site' => ['required'],
-            'email' => ['required'],
+            'email' => ['required', 'email'],
         ];
     }
 
@@ -40,7 +39,6 @@ class SiteNotificationEmailDestroyRequest extends FormRequest
         // from a route such as /sites/{site}/
 
         $this->mergeIfMissing([
-            'site' => $this->site,
             'email' => $this->email,
         ]);
     }
