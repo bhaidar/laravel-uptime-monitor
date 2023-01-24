@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\EndpointFrequency;
-use App\Http\Resources\EndpointFrequencyResource;
 use App\Http\Resources\EndpointResource;
 use App\Http\Resources\SiteResource;
 use App\Models\Endpoint;
