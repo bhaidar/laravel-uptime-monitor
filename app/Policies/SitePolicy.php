@@ -10,6 +10,11 @@ class SitePolicy
 {
     use HandlesAuthorization;
 
+    public function destroyNotificationChannels(User $user, Site $site): bool
+    {
+        return $user->id === $site->user_id;
+    }
+
     public function storeNotificationChannels(User $user, Site $site): bool
     {
         return $user->id === $site->user_id;
