@@ -6,6 +6,7 @@ use App\Http\Controllers\EndpointIndexController;
 use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\EndpointUpdateController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiteNotificationEmailDestroyController;
 use App\Http\Controllers\SiteNotificationEmailStoreController;
 use App\Http\Controllers\SiteStoreController;
 use Illuminate\Foundation\Application;
@@ -40,6 +41,9 @@ Route::middleware(['auth'])
         // Can have more notifications in the future
         Route::post('/{site}/notifications/emails', SiteNotificationEmailStoreController::class)
             ->name('site.notifications.store');
+
+        Route::delete('/{site}/notifications/emails', SiteNotificationEmailDestroyController::class)
+            ->name('site.notifications.destroy');
     });
 
 Route::middleware(['auth'])

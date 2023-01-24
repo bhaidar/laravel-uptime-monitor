@@ -116,7 +116,7 @@ const endpointsCount = computed(() => props?.endpoints?.data?.length);
                 </h2>
 
                 <div class="grid grid-cols-3 gap-12 mt-4">
-                  <EmailNotifications :site="site.data" />
+                  <EmailNotifications :site="site.data" :emails="site.data.notificationEmails" />
                 </div>
               </div>
 
