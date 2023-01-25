@@ -38,8 +38,8 @@ class SiteNotificationEmailDestroyRequest extends FormRequest
         // Add the url parameter site into the validation data
         // from a route such as /sites/{site}/
 
-        $this->mergeIfMissing([
-            'email' => $this->email,
-        ]);
+//        $this->mergeIfMissing([
+//            'email' => $this->email,
+//        ]);
     }
 }
