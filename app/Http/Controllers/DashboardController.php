@@ -21,17 +21,23 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request, Site $site): Response
     {
+        // Site was loaded by implicit binding
+        if ($site->exists)
+        {
+            $site->setRelation('user', $request->user());
+        }
+
         // Make site default
+        // If site not loaded by implicit binding, nothing happens
         $site->update(['default' => true]);
 
         // Case when no site is passed over
-        if (!$site->exists)
-        {
+        if (!$site->exists) {
             $site = $request->user()->sites()->whereDefault(true)->first() ?? $request->user()->sites()->first();
         }
 
-        if (!$site)
-        {
+        // No sites in the database for this user
+        if (!$site) {
             return Inertia::render('Dashboard');
         }
 
