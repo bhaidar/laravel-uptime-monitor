@@ -36,22 +36,17 @@ class DashboardController extends Controller
             $site = $request->user()->sites()->whereDefault(true)->first() ?? $request->user()->sites()->first();
         }
 
-        // No sites in the database for this user
-        if (!$site) {
-            return Inertia::render('Dashboard');
-        }
-
         // eager load endpoints together with their checks
-        $site->loadMissing(['endpoints.checks', 'endpoints.check']);
+        $site?->loadMissing(['endpoints.checks', 'endpoints.check']);
 
         return Inertia::render('Dashboard', [
-            'site' => SiteResource::make($site),
-            'endpoints' => EndpointResource::collection(
+            'site' => $site ? SiteResource::make($site) : null,
+            'endpoints' => $site ? EndpointResource::collection(
                 $site->endpoints
                     ->map(function (Endpoint $endpoint) use($site) { // not to load site again when calling site->url() on each Endoint
                         return $endpoint->setRelation('site', $site);
                     })
-            ),
+            ) : null,
         ]);
     }
 }
