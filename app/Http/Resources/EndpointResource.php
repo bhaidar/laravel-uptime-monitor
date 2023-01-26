@@ -27,7 +27,7 @@ class EndpointResource extends JsonResource
             'url' => $this->url(),
             'site' => SiteResource::make($this->whenLoaded('site')),
             'checks' => CheckResource::collection($this->whenLoaded('checks')),
-            'uptimePercentages' => $this->uptimePercentages(),
+            'uptimePercentages' => $this->relationLoaded('checks') ? $this->uptimePercentages() : null,
         ];
     }
 }

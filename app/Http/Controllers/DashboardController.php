@@ -36,7 +36,7 @@ class DashboardController extends Controller
         }
 
         // eager load endpoints together with their checks
-        $site->loadMissing('endpoints.check');
+        $site->loadMissing(['endpoints.checks', 'endpoints.check']);
 
         return Inertia::render('Dashboard', [
             'site' => SiteResource::make($site),

@@ -23,6 +23,16 @@ class Endpoint extends Model
         return $this->belongsTo(Site::class);
     }
 
+    public function checks(): HasMany
+    {
+        return $this->hasMany(Check::class)->latest();
+    }
+
+    public function check(): HasOne
+    {
+        return $this->hasOne(Check::class)->latestOfMany();
+    }
+
     public function url(): string
     {
         return $this->site->url() . $this->location;
@@ -35,15 +45,5 @@ class Endpoint extends Model
         }
 
         return number_format(($this->successful_checks_count / $this->checks->count()) * 100, 2);
-    }
-
-    public function checks(): HasMany
-    {
-        return $this->hasMany(Check::class)->latest();
-    }
-
-    public function check(): HasOne
-    {
-        return $this->hasOne(Check::class)->latestOfMany();
     }
 }
