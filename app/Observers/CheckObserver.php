@@ -25,12 +25,14 @@ class CheckObserver
 
         // Went up
         // if check is successful
-        // was the previous check unsuccessful and there are many checks before
+        // was the previous check unsuccessful
+        // and
+        // the checks are different from 1 (meaning don't send recovery for first time adding endpoint)
         // then send endpoint up notification
 
         if ($check->isSuccessful()
             &&
-            (!$check->previous()?->isSuccessful() && $check->endpoint->checks->count() >= 1)
+            (!$check->previous()?->isSuccessful() && $check->endpoint->checks->count() !== 1)
         )
         {
             EndpointRecovered::dispatch($check);
