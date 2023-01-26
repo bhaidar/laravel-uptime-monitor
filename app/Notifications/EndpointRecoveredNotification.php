@@ -43,7 +43,7 @@ class EndpointRecoveredNotification extends Notification
     {
         return (new MailMessage)
             ->Subject($this->endpoint->location . ' recovered')
-            ->markdown('emails.endpoint_recovered', [
+            ->markdown('mail.endpoint_recovered', [
                 'endpoint' => $this->endpoint,
             ]);
     }

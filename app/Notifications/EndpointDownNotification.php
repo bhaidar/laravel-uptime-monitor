@@ -43,7 +43,7 @@ class EndpointDownNotification extends Notification
     {
         return (new MailMessage)
             ->Subject($this->endpoint->location . ' went down')
-            ->markdown('emails.endpoint_down', [
+            ->markdown('mail.endpoint_down', [
                 'endpoint' => $this->endpoint,
             ]);
     }
