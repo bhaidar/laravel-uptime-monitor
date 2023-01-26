@@ -6,6 +6,7 @@ use App\Http\Controllers\EndpointIndexController;
 use App\Http\Controllers\EndpointStoreController;
 use App\Http\Controllers\EndpointUpdateController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiteDestroyController;
 use App\Http\Controllers\SiteNotificationEmailDestroyController;
 use App\Http\Controllers\SiteNotificationEmailStoreController;
 use App\Http\Controllers\SiteStoreController;
@@ -31,8 +32,8 @@ Route::middleware(['auth'])
         Route::post('/', SiteStoreController::class)
             ->name('sites.store');
 
-        Route::post('/', SiteStoreController::class)
-            ->name('sites.store');
+        Route::delete('/{site}', SiteDestroyController::class)
+            ->name('sites.destroy');
 
         // An endpoint is created on a site => nested route
         Route::post('/{site}/endpoints', EndpointStoreController::class)
@@ -51,8 +52,10 @@ Route::middleware(['auth'])
     ->group(function () {
         Route::get('/{endpoint}', EndpointIndexController::class)
             ->name('endpoints.index');
+
         Route::delete('/{endpoint}', EndpointDestroyController::class)
             ->name('endpoints.destroy');
+
         Route::patch('/{endpoint}', EndpointUpdateController::class)
             ->name('endpoints.update');
     });

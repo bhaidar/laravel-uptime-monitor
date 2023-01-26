@@ -25,7 +25,9 @@ const storeEmailNotification = () => {
 };
 
 const onEmailDelete = (email) => {
-  Inertia.delete(route('site.notifications.destroy', { site: props?.site, email }));
+  if (window.confirm('Are you sure you want to remove this email?')) {
+    Inertia.delete(route('site.notifications.destroy', { site: props?.site, email }));
+  }
 }
 </script>
 

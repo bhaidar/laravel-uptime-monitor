@@ -16,6 +16,7 @@ class DashboardController extends Controller
      * Handle the incoming request.
      *
      * @param Request $request
+     * @param Site $site
      * @return Response
      */
     public function __invoke(Request $request, Site $site): Response
@@ -27,6 +28,11 @@ class DashboardController extends Controller
         if (!$site->exists)
         {
             $site = $request->user()->sites()->whereDefault(true)->first() ?? $request->user()->sites()->first();
+        }
+
+        if (!$site)
+        {
+            return Inertia::render('Dashboard');
         }
 
         // eager load endpoints together with their checks
